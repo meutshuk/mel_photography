@@ -1,0 +1,66 @@
+---
+const NAVBAR_LINK = [
+  {
+    name: "portfolio",
+    link: "/",
+  },
+  {
+    name: "contact",
+    link: "/contact",
+  },
+];
+---
+
+<style></style>
+
+<header class="flex w-full overflow-hidden pt-10 pb-1">
+  <!-- Navbar -->
+  <nav id="nav" x-data="{ open: false }" role="navigation" class="w-full">
+    <div class="container mx-auto flex flex-wrap items-center md:flex-no-wrap">
+      <div class="mr-4 md:mr-8">
+        <a href="/" class="text-2xl font-signika font-bold">SOPHIA WILLIAMS</a>
+      </div>
+
+      <div
+        id="menu"
+        class="w-full h-0 transition-all ease-out duration-500 md:transition-none md:w-auto md:flex-grow md:flex md:items-center"
+      >
+        <ul
+          id="ulMenu"
+          class="flex flex-col duration-300 ease-out md:space-x-5 sm:transition-none mt-5 md:flex-row md:items-center md:ml-auto md:mt-0 md:pt-0 md:border-0"
+        >
+          {
+            NAVBAR_LINK.map((i) => (
+              <li class="group transition duration-300">
+                <a
+                  href={i.link}
+                  class="font-signika text-2xl tap-highlight-transparent uppercase"
+                >
+                  {i.name}
+                  <span class="hidden md:block h-0.5 bg-black dark:bg-white" />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const hamburger = document.getElementById("hamburger");
+  const close = document.getElementById("close");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  hamburger?.addEventListener("click", toggleMenu);
+  close?.addEventListener("click", toggleMenu);
+
+  function toggleMenu() {
+    if (hamburger && close && mobileMenu) {
+      hamburger.classList.toggle("hidden");
+      close.classList.toggle("hidden");
+      mobileMenu.classList.toggle("open");
+    }
+  }
+</script>
