@@ -1,12 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import IMAGES from "../data/images";
+import { IMAGES } from "../data/images";
+import Images from "../components/Images.astro";
 ---
 
 <Layout>
   <div class="container mx-auto">
-    <h1 class="text-4xl pt-10 pb-8 font-bold">PORTFOLIO</h1>
-    <section class="text-neutral-700">
+    <h3 class="text-2xl pt-10 pb-8 font-bold">PORTFOLIO</h3>
+    <Images images={IMAGES} />
+    <!-- <section class="text-neutral-700">
       <div class="container w-full">
         <div class="flex flex-wrap w-full">
           <div class="flex w-full md:w-1/2 flex-wrap">
@@ -244,6 +246,6 @@ import IMAGES from "../data/images";
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
   </div>
 </Layout>
