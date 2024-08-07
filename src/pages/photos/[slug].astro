@@ -1,9 +1,9 @@
 ---
 // pages/[slug].astro
-import Images from "../components/Images.astro";
-import Layout from "../layouts/Layout.astro";
-import { GET_IMAGES_BY_SLUG, GET_TITLE_IMAGES } from "../lib/queries";
-import client from "../lib/sanity";
+import Images from "../../components/Images.astro";
+import Layout from "../../layouts/Layout.astro";
+import { GET_IMAGES_BY_SLUG, GET_TITLE_IMAGES } from "../../lib/queries";
+import client from "../../lib/sanity";
 
 const { slug } = Astro.params;
 const imageAssets: ImageBySlug = await client.fetch(GET_IMAGES_BY_SLUG, {
@@ -20,8 +20,13 @@ export async function getStaticPaths() {
 
 <Layout>
   <section>
-    <h1>{imageAssets.title}</h1>
-    <p>{imageAssets.description}</p>
+    <div class="mb-10">
+      <h1 class="text-xl font-semibold text-gray-800 capitalize">
+        {imageAssets.title}
+      </h1>
+      <p class="mt-2 text-base text-gray-600">{imageAssets.description}</p>
+    </div>
+
     <ul class="custom-grid items-center">
       {
         imageAssets.images.map((image) => (

@@ -1,5 +1,5 @@
 export const SITE_INFO = {
-    name: 'NAME HERE',
+    name: 'Mel',
     address: 'WOLLONGONG NSW AUSTRALIA',
     phoneNumber: "123123123",
     linkedIn: "",

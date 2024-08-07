@@ -11,9 +11,11 @@ import Footer from "../components/Footer.astro";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Astro Project</title>
   </head>
-  <body class="max-w-[1040px] ml-auto mr-auto px-8 py-4">
+  <body
+    class="max-w-[1040px] ml-auto mr-auto px-8 py-4 flex flex-col min-h-screen"
+  >
     <Navbar />
-    <main>
+    <main class="flex-grow">
       <slot />
     </main>
     <Footer />

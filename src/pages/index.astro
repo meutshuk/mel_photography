@@ -8,17 +8,11 @@ const images: ImageAssets[] = await client.fetch(GET_IMAGES);
 ---
 
 <Layout>
-  <div class="">
-    <h3 class="text-base md:text-lg lg:text-2xl pt-10 pb-8 font-bold">
-      PORTFOLIO
-    </h3>
-
-    <section>
-      <div class="custom-grid items-center">
-        {images.map((image) => <Images image={image} />)}
-      </div>
-    </section>
-  </div>
+  <section class="py-5">
+    <div class="custom-grid items-center">
+      {images.map((image) => <Images image={image} />)}
+    </div>
+  </section>
 </Layout>
 
 <style>

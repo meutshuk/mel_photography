@@ -9,7 +9,9 @@ interface ImageAssets {
 interface TitleImages {
     _id: string,
     title: string,
-    slug: string
+    slug: string,
+    date: Date,
+    location: string
 }
 
 interface ImageBySlug {

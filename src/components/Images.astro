@@ -11,7 +11,7 @@ const { image }: any = Astro.props;
     <img
       alt={image.title}
       class="custom-translation object-cover object-center w-full h-full"
-      src={image.url}
+      src={urlFor(image.url).auto("format").url()}
     />
   </div>
 </div>

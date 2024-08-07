@@ -1,48 +1,46 @@
 ---
 const NAVBAR_LINK = [
   {
-    name: "portfolio",
-    link: "/",
+    name: "Photos",
+    link: "/photos",
   },
   {
     name: "contact",
     link: "/contact",
   },
-  {
-    name: "test",
-    link: "/test",
-  },
 ];
 
 import { SITE_INFO } from "../data/siteInfo";
+const currentPath = Astro.url.pathname;
 ---
 
 <style></style>
 
-<header class="">
+<header class="mb-16">
   <!-- Navbar -->
   <nav id="nav" role="navigation" class="">
-    <div class="flex items-center gap-3 mt-10 md:gap-0 flex-col md:flex-row">
+    <div
+      class="flex items-center gap-3 pt-2 md:pt-5 md:gap-0 flex-col md:flex-row"
+    >
       <div class="mr-4 md:mr-8">
-        <a href="/" class="text-2xl font-signika font-semibold"
-          >{SITE_INFO.name}</a
-        >
+        <a href="/" class="text-2xl logo">{SITE_INFO.name}</a>
       </div>
 
       <!-- <div id="menu" class="w-auto md:w-auto flex-grow flex items-center"> -->
       <ul
         id="ulMenu"
-        class="flex text-base justify-center w-full md:w-auto space-x-5 flex-row items-center ml-auto"
+        class="flex text-base justify-center w-full md:w-auto flex-row items-center ml-auto"
       >
         {
           NAVBAR_LINK.map((i) => (
-            <li class="group transition duration-300">
+            <li
+              class={`px-5  ${currentPath.includes(i.link) ? "active-link" : ""}`}
+            >
               <a
                 href={i.link}
-                class="font-signika  tap-highlight-transparent uppercase"
+                class=" tap-highlight-transparent text-black font-medium text-lg capitalize"
               >
                 {i.name}
-                <span class="hidden md:block h-0.5 bg-black dark:bg-white" />
               </a>
             </li>
           ))
@@ -54,3 +52,20 @@ import { SITE_INFO } from "../data/siteInfo";
 </header>
 
 <script></script>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+  .logo {
+    font-family: "Pacifico";
+    font-weight: 400;
+    font-style: normal;
+    font-size: xx-large;
+  }
+
+  .active-link {
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+  }
+</style>

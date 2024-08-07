@@ -13,7 +13,9 @@ export const GET_TITLE_IMAGES = `
   *[_type == "titleImage"] | order(title asc){
     _id,
     title,
-    "slug": slug.current
+    "slug": slug.current,
+     date,
+    location
   }
 `
 
