@@ -1,6 +1,10 @@
 ---
 const NAVBAR_LINK = [
   {
+    name: "Portfolio",
+    link: "/portfolio",
+  },
+  {
     name: "Photos",
     link: "/photos",
   },
@@ -17,19 +21,14 @@ const currentPath = Astro.url.pathname;
 <style></style>
 
 <header class="mb-16">
-  <!-- Navbar -->
   <nav id="nav" role="navigation" class="">
-    <div
-      class="flex items-center gap-3 pt-2 md:pt-5 md:gap-0 flex-col md:flex-row"
-    >
-      <div class="mr-4 md:mr-8">
+    <div class="flex items-center gap-3 pt-2 md:pt-5 md:gap-0 flex-row">
+      <div class="mr-4 md:mr-8 fade-in-top">
         <a href="/" class="text-2xl logo">{SITE_INFO.name}</a>
       </div>
 
-      <!-- <div id="menu" class="w-auto md:w-auto flex-grow flex items-center"> -->
       <ul
-        id="ulMenu"
-        class="flex text-base justify-center w-full md:w-auto flex-row items-center ml-auto"
+        class="hidden fade-in-top md:flex text-base justify-end w-full flex-row items-center ml-auto"
       >
         {
           NAVBAR_LINK.map((i) => (
@@ -46,12 +45,45 @@ const currentPath = Astro.url.pathname;
           ))
         }
       </ul>
-      <!-- </div> -->
+
+      <div id="nav_button" class="button fade-in-top flex md:hidden">
+        <div id="burger" class="burger"></div>
+      </div>
+
+      <div id="curtain" class="curtain hidden">
+        <ul class="flex flex-col items-center space-y-10">
+          {
+            NAVBAR_LINK.map((i) => (
+              <li
+                class={`px-5  ${currentPath.includes(i.link) ? "active-link" : ""}`}
+              >
+                <a
+                  href={i.link}
+                  class="tap-highlight-transparent font-medium text-5xl capitalize"
+                >
+                  {i.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </div>
   </nav>
 </header>
 
-<script></script>
+<script>
+  const navButton = document.getElementById("nav_button");
+  const burger = document.getElementById("burger");
+  const curtain = document.getElementById("curtain");
+
+  navButton?.addEventListener("click", () => {
+    burger?.classList.toggle("burgerActive");
+    curtain?.classList.toggle("show");
+    curtain?.classList.toggle("hidden");
+  });
+</script>
+
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
@@ -67,5 +99,108 @@ const currentPath = Astro.url.pathname;
     text-decoration-style: wavy;
     text-decoration-thickness: 2px;
     text-underline-offset: 5px;
+    text-decoration-color: cornflowerblue;
+  }
+
+  @keyframes fadeInTop {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in-top {
+    animation: fadeInTop 1s ease-out;
+  }
+
+  .fade-in-top-delay {
+    animation: fadeInTop 1s ease-out 0.5s;
+  }
+
+  .button {
+    position: fixed;
+    right: 0px;
+    margin: 20px;
+    z-index: 2;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .burger {
+    width: 100%;
+  }
+
+  .burger::after,
+  .burger::before {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 60%;
+    margin: auto;
+    background-color: rgb(0, 0, 0);
+    position: relative;
+    transition: transform 0.3s;
+  }
+
+  .burger::after {
+    top: -5px;
+  }
+
+  .burger::before {
+    top: 5px;
+  }
+
+  .burgerActive::after {
+    transform: rotate(45deg);
+    top: -1px;
+  }
+
+  .burgerActive::before {
+    transform: rotate(-45deg);
+    top: 0px;
+  }
+
+  .curtain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
+    transform: translateX(-100%);
+  }
+
+  .curtain.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .curtain ul li {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
+  }
+
+  .curtain.show ul li {
+    opacity: 1;
+    transform: translateX(0);
   }
 </style>
