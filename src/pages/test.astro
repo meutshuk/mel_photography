@@ -1,7 +1,20 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { GET_TITLE_IMAGES } from "../lib/queries";
+import client from "../lib/sanity";
+
+const images: TitleImages[] = await client.fetch(GET_TITLE_IMAGES);
 ---
 
 <Layout>
   <a href="https://kuraunaito.com/">example</a>
+  <ul>
+    {
+      images.map((i) => (
+        <li>
+          <a href={`/${i.slug}`}>{i.title}</a>
+        </li>
+      ))
+    }
+  </ul>
 </Layout>

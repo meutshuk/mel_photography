@@ -3,41 +3,23 @@ import { GET_IMAGES } from "../lib/queries";
 import client from "../lib/sanity";
 import { urlFor } from "../lib/sanity";
 
-const images = await client.fetch(GET_IMAGES);
+const { image }: { image: ImageAssets } = Astro.props;
 ---
 
-<section class="">
-  <div class="">
-    <div class="custom-grid items-center">
-      {
-        images.map((image: any) => (
-          <div class="p-2 image_element">
-            <div class="  border-6 border-white overflow-hidden">
-              <a href={image.url} data-fancybox="gallery">
-                <img
-                  alt={image.title}
-                  class="custom-translation object-cover object-center w-full h-full"
-                  src={image.url}
-                />
-              </a>
-            </div>
-          </div>
-        ))
-      }
-    </div>
+<div class="p-2 image_element">
+  <div class="border-6 border-white overflow-hidden">
+    <img
+      alt={image.title}
+      class="custom-translation object-cover object-center w-full h-full"
+      src={image.url}
+    />
   </div>
-</section>
+</div>
 
 <style>
   .custom-transition {
     transition: 0.25s cubic-bezier(0.36, 0.07, 0.25, 1);
     transition-property: transform, box-shadow;
-  }
-
-  .custom-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 4rem;
   }
 
   .image_element {

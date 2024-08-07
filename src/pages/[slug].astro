@@ -1,0 +1,42 @@
+---
+// pages/[slug].astro
+import Images from "../components/Images.astro";
+import Layout from "../layouts/Layout.astro";
+import { GET_IMAGES_BY_SLUG, GET_TITLE_IMAGES } from "../lib/queries";
+import client from "../lib/sanity";
+
+const { slug } = Astro.params;
+const imageAssets: ImageBySlug = await client.fetch(GET_IMAGES_BY_SLUG, {
+  slug,
+});
+
+export async function getStaticPaths() {
+  const images: TitleImages[] = await client.fetch(GET_TITLE_IMAGES);
+  return images.map((image) => ({
+    params: { slug: image.slug },
+  }));
+}
+---
+
+<Layout>
+  <section>
+    <h1>{imageAssets.title}</h1>
+    <p>{imageAssets.description}</p>
+    <ul class="custom-grid items-center">
+      {
+        imageAssets.images.map((image) => (
+          <li>
+            <Images image={image} />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Layout>
+<style>
+  .custom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 4rem;
+  }
+</style>
