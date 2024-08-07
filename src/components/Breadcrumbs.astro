@@ -1,0 +1,35 @@
+---
+import { generateBreadcrumbs } from "../util/breadcrumb";
+
+const { pathname } = Astro.url;
+const breadcrumbs = generateBreadcrumbs(pathname);
+---
+
+<nav aria-label="breadcrumb">
+  <ol class="flex space-x-2 text-black text-xl">
+    <li>
+      <a href="/" class="hover:underline">Home</a>
+    </li>
+    {
+      breadcrumbs.map((breadcrumb, index) => {
+        const isLast = index === breadcrumbs.length - 1;
+        return (
+          <>
+            <li>/</li>
+            <li>
+              {isLast ? (
+                <span class="font-bold capitalize">
+                  {breadcrumb.name.replace(/-/g, " ")}
+                </span>
+              ) : (
+                <a href={breadcrumb.url} class="hover:underline capitalize">
+                  {breadcrumb.name.replace(/-/g, " ")}
+                </a>
+              )}
+            </li>
+          </>
+        );
+      })
+    }
+  </ol>
+</nav>
