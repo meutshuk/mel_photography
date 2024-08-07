@@ -16,28 +16,34 @@ const NAVBAR_LINK = [
 
 import { SITE_INFO } from "../data/siteInfo";
 const currentPath = Astro.url.pathname;
+console.log(currentPath);
 ---
 
 <style></style>
 
 <header class="mb-16">
   <nav id="nav" role="navigation" class="">
-    <div class="flex items-center gap-3 pt-2 md:pt-5 md:gap-0 flex-row">
-      <div class="mr-4 md:mr-8 fade-in-top">
-        <a href="/" class="text-2xl logo">{SITE_INFO.name}</a>
+    <div class="flex items-center gap-3 pt-2 lg:pt-5 lg:gap-0 flex-row">
+      <div class="mr-4 lg:mr-8 fade-in-top z-10">
+        <a
+          href="/"
+          class={`text-2xl  ${currentPath === "/" ? "text-white" : "text-black"} logo`}
+        >
+          {SITE_INFO.name}
+        </a>
       </div>
 
       <ul
-        class="hidden fade-in-top md:flex text-base justify-end w-full flex-row items-center ml-auto"
+        class="hidden fade-in-top lg:flex text-base justify-end w-full flex-row items-center ml-auto"
       >
         {
           NAVBAR_LINK.map((i) => (
             <li
-              class={`px-5  ${currentPath.includes(i.link) ? "active-link" : ""}`}
+              class={`px-5  ${currentPath.includes(i.link) ? "active-link" : ""}  ${currentPath === "/" ? "text-white" : "text-black"}`}
             >
               <a
                 href={i.link}
-                class=" tap-highlight-transparent text-black font-medium text-lg capitalize"
+                class=" tap-highlight-transparent  font-medium text-xl capitalize"
               >
                 {i.name}
               </a>
@@ -46,7 +52,7 @@ const currentPath = Astro.url.pathname;
         }
       </ul>
 
-      <div id="nav_button" class="button fade-in-top flex md:hidden">
+      <div id="nav_button" class="button fade-in-top flex lg:hidden">
         <div id="burger" class="burger"></div>
       </div>
 
@@ -132,6 +138,7 @@ const currentPath = Astro.url.pathname;
     cursor: pointer;
     align-items: center;
     justify-content: center;
+    background-color: rgba(0, 0, 0, 0.566);
   }
 
   .burger {
@@ -145,9 +152,9 @@ const currentPath = Astro.url.pathname;
     height: 2px;
     width: 60%;
     margin: auto;
-    background-color: rgb(0, 0, 0);
     position: relative;
     transition: transform 0.3s;
+    background-color: rgb(255, 255, 255);
   }
 
   .burger::after {

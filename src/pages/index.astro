@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Images from "../components/Images.astro";
 import client from "../lib/sanity";
 import { GET_IMAGES } from "../lib/queries";
 
@@ -8,14 +7,23 @@ const images: ImageAssets[] = await client.fetch(GET_IMAGES);
 ---
 
 <Layout>
-  <section class="py-5">
-    <div class="custom-grid items-center">
-      {images.map((image) => <Images image={image} />)}
-    </div>
-  </section>
+  <div id="background"></div>
 </Layout>
 
 <style>
+  #background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url("https://cdn.sanity.io/images/iwi8k3qo/production/e4c8ca4c254fb86e510cf195d37e7e74ee96b45f-3024x4032.jpg?auto=format");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
   .custom-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
