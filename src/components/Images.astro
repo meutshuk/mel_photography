@@ -6,27 +6,20 @@ import { urlFor } from "../lib/sanity";
 const images = await client.fetch(GET_IMAGES);
 ---
 
-<section class="text-neutral-700">
-  <div class="container">
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-    >
+<section class="">
+  <div class="">
+    <div class="custom-grid items-center">
       {
         images.map((image: any) => (
-          <div class="p-1">
-            <div class="overflow-hidden rounded-lg">
+          <div class="p-2 image_element">
+            <div class="  border-6 border-white overflow-hidden">
               <a href={image.url} data-fancybox="gallery">
                 <img
                   alt={image.title}
-                  class="block h-full w-full object-cover object-center animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
+                  class="custom-translation object-cover object-center w-full h-full"
                   src={image.url}
                 />
               </a>
-            </div>
-            <div class="p-2">
-              <h2 class="text-lg font-bold">{image.title}</h2>
-              <p class="text-sm">{image.location}</p>
-              <p class="text-sm">{image.description}</p>
             </div>
           </div>
         ))
@@ -34,3 +27,29 @@ const images = await client.fetch(GET_IMAGES);
     </div>
   </div>
 </section>
+
+<style>
+  .custom-transition {
+    transition: 0.25s cubic-bezier(0.36, 0.07, 0.25, 1);
+    transition-property: transform, box-shadow;
+  }
+
+  .custom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 4rem;
+  }
+
+  .image_element {
+    border: 8px solid #fff;
+    box-shadow: 0 0 20px 1px #cacaca40;
+    transition: 0.25s cubic-bezier(0.36, 0.07, 0.25, 1);
+    transition-property: transform, box-shadow;
+  }
+
+  .image_element:hover {
+    cursor: pointer;
+    box-shadow: 0 0 20px 1px #cacaca80;
+    transform: translate3d(0, -2%, 0);
+  }
+</style>
