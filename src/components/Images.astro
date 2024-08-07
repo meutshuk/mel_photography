@@ -3,7 +3,7 @@ import { GET_IMAGES } from "../lib/queries";
 import client from "../lib/sanity";
 import { urlFor } from "../lib/sanity";
 
-const { image }: { image: ImageAssets } = Astro.props;
+const { image }: any = Astro.props;
 ---
 
 <div class="p-2 image_element">
