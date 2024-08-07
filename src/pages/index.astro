@@ -1,9 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import client from "../lib/sanity";
-import { GET_IMAGES } from "../lib/queries";
-
-const images: ImageAssets[] = await client.fetch(GET_IMAGES);
 ---
 
 <Layout>

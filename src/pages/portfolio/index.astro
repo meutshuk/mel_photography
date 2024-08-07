@@ -1,5 +1,56 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+
+import { Carousel } from "astro-carousel";
+import { getImageDimensions } from "@sanity/asset-utils";
+
+import client from "../../lib/sanity";
+import { GET_IMAGES } from "../../lib/queries";
+import type { ComponentProps } from "astro/types";
+import Images from "../../components/Images.astro";
+
+const { blok } = Astro.props;
+
+const images: ImageAssets[] = await client.fetch(GET_IMAGES);
+
+function getRatio(image: any) {
+  const { width, height } = getImageDimensions(image.url);
+
+  return height / width;
+}
+
+const image: ComponentProps<typeof Carousel>["images"] = images.map(
+  (img: any) => {
+    return {
+      src: img.url,
+      alt: img.alt ?? "",
+      width: 900,
+      height: 900 * getRatio(img),
+    };
+  }
+);
 ---
 
-<Layout />
+<Layout>
+  <Carousel images={image} />
+
+  <ul id="carouselTargetList" class="custom-grid items-center">
+    {
+      images.map((img, index) => {
+        return (
+          <a href={`?image=${index}`} data-carousel-index={index}>
+            <Images image={img} />
+          </a>
+        );
+      })
+    }
+  </ul>
+</Layout>
+
+<style>
+  .custom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 4rem;
+  }
+</style>
